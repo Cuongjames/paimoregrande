@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-Paimore">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: Phân Tích Màu Nhuộm Paimore Grande</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!--
+    Kế hoạch tường thuật Infographic Paimore Grande:
+    1. Giới thiệu: Paimore Grande - Cách mạng màu nhuộm cao cấp Nhật Bản (Tổng quan, triết lý "dược mỹ phẩm", "hữu cơ").
+    2. Tính năng & Lợi ích chính: Bảng màu 56 sắc thái (Biểu đồ Donut), Lợi ích cốt lõi (Danh sách biểu tượng HTML/CSS), giải thích "quasi-drug" & ECOCERT.
+    3. Trải nghiệm sản phẩm: Quy trình sử dụng (Lưu đồ HTML/CSS 1:2, 30 phút), Kết quả kỳ vọng.
+    4. Hiện diện thị trường & Toàn cầu: Số quốc gia phân phối (Số liệu lớn), Paimore Việt Nam & văn phòng.
+    5. Chứng thực chuyên nghiệp & Cộng đồng: Hội thảo quan trọng (Dòng thời gian HTML/CSS).
+    6. Dấu ấn trực tuyến & Tiếp cận: Hiện diện YouTube (Biểu đồ cột nhỏ), Kênh bán hàng (TMĐT, salon finder).
+    7. Phân tích SWOT: Điểm mạnh, Điểm yếu, Cơ hội, Thách thức (Thẻ HTML/CSS).
+    8. Kết luận: Tương lai với Paimore Grande (Tóm tắt, CTA).
+    Bảng màu lựa chọn: "Energetic & Playful" (Đã điều chỉnh cho phù hợp với infographic)
+    - Nền chính: #F9FAFB (bg-gray-50)
+    - Nền thẻ: #FFFFFF (bg-white)
+    - Chữ chính: #1F2937 (text-gray-800)
+    - Màu nhấn 1 (Xanh mòng két): #48A9A6
+    - Màu nhấn 2 (Cam san hô): #E4572E
+    - Màu nhấn 3 (Vàng): #FACC15 (Tailwind yellow-400)
+    - Màu nhấn 4 (Xanh đậm): #274C77
+    -->
+    <!--
+    Lựa chọn trực quan hóa dữ liệu (KHÔNG SVG, KHÔNG MERMAID JS):
+    - Giới thiệu: Văn bản lớn + Biểu tượng Unicode (🇯🇵). Thẻ HTML/CSS cho "Quasi-Drug", "Organic". Mục tiêu: Thông báo. Phương pháp: HTML/CSS.
+    - 56 Sắc thái (Thành phần): Biểu đồ Donut. Mục tiêu: So sánh (Thành phần). Thư viện: Chart.js (Canvas). Lý do: Hiển thị rõ các phần của một tổng thể.
+    - Lợi ích chính: Danh sách HTML/CSS với biểu tượng Unicode (✅🛡️🌿🍎✨). Mục tiêu: Thông báo/Tổ chức. Phương pháp: HTML/CSS. Lý do: Danh sách trực quan, hấp dẫn.
+    - Quy trình sử dụng: Lưu đồ HTML/CSS (Flexbox/Grid, borders, mũi tên Unicode →). Mục tiêu: Tổ chức. Phương pháp: HTML/CSS. Lý do: Hiển thị quy trình.
+    - Số quốc gia phân phối: Số liệu lớn ("11+ Quốc gia") & văn bản. Mục tiêu: Thông báo. Phương pháp: HTML/CSS. Lý do: Đơn giản, hiệu quả cho một điểm dữ liệu.
+    - Hội thảo quan trọng: Dòng thời gian HTML/CSS. Mục tiêu: Thay đổi (theo thời gian/sự kiện). Phương pháp: HTML/CSS. Lý do: Hiển thị các sự kiện chính.
+    - Hiện diện YouTube: Biểu đồ cột đơn giản (Số lượng video, người đăng ký). Mục tiêu: Thông báo/So sánh. Thư viện: Chart.js (Canvas). Lý do: Định lượng sự hiện diện trực tuyến.
+    - Phân tích SWOT: 4 thẻ HTML/CSS (Tailwind grid). Mục tiêu: Tổ chức. Phương pháp: HTML/CSS. Lý do: Định dạng phân tích kinh doanh tiêu chuẩn.
+    Tất cả biểu đồ Chart.js sẽ sử dụng Canvas, responsive, maintainAspectRatio: false, bao gồm logic ngắt dòng nhãn (16 ký tự) và cấu hình tooltip bắt buộc.
+    Xác nhận: KHÔNG sử dụng Mermaid JS. KHÔNG sử dụng SVG.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB; /* bg-gray-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px; /* Adjusted for donut and small bar */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 350px;
+        }
+        .swot-card {
+            background-color: #FFFFFF; /* bg-white */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        .section-title {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            color: #274C77; /* Accent 4 */
+            margin-bottom: 1rem; /* mb-4 */
+            text-align: center;
+        }
+        .sub-title {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 600; /* font-semibold */
+            color: #1F2937; /* text-gray-800 */
+            margin-bottom: 0.75rem; /* mb-3 */
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .highlight-stat {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 700; /* font-bold */
+            color: #E4572E; /* Accent 2 */
+        }
+        .flowchart-step {
+            background-color: #E0F2F1; /* Light Teal */
+            border: 2px solid #48A9A6; /* Accent 1 */
+            color: #1F2937;
+            padding: 0.75rem; /* p-3 */
+            border-radius: 0.375rem; /* rounded-md */
+            text-align: center;
+            flex-grow: 1;
+        }
+        .flowchart-arrow {
+            font-size: 1.5rem; /* text-2xl */
+            color: #48A9A6; /* Accent 1 */
+            align-self: center;
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem; /* pl-10 */
+            padding-bottom: 1.5rem; /* pb-6 */
+            border-left: 2px solid #48A9A6; /* Accent 1 */
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.5rem; /* Adjust to center on the line */
+            top: 0.25rem; /* Adjust vertical alignment */
+            height: 1rem; /* h-4 */
+            width: 1rem; /* w-4 */
+            background-color: #E4572E; /* Accent 2 */
+            border-radius: 9999px; /* rounded-full */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <header class="bg-gradient-to-r from-[#48A9A6] to-[#274C77] text-white py-12 px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Màu Nhuộm Paimore Grande: Phân Tích Chuyên Sâu</h1>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto">Khám phá giải pháp màu nhuộm cao cấp từ Nhật Bản, kết hợp công nghệ dược mỹ phẩm và thành phần hữu cơ an toàn.</p>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        <section class="mb-12">
+            <h2 class="section-title">Paimore Grande: Cách Mạng Màu Nhuộm Nhật Bản 🇯🇵</h2>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="card">
+                    <p class="text-lg leading-relaxed">
+                        Paimore Co., Ltd., một thương hiệu uy tín từ Nhật Bản, đã mang đến dòng sản phẩm Paimore Grande, định vị là "Dược Mỹ Phẩm Cao Cấp". Với triết lý kết hợp mỹ phẩm và dược phẩm, Paimore Grande nhấn mạnh vào hiệu quả và độ an toàn vượt trội.
+                    </p>
+                    <div class="mt-4 space-x-2">
+                        <span class="inline-block bg-[#48A9A6] text-white text-sm font-semibold px-3 py-1 rounded-full">Made in Japan</span>
+                        <span class="inline-block bg-[#E4572E] text-white text-sm font-semibold px-3 py-1 rounded-full">Dược Mỹ Phẩm</span>
+                        <span class="inline-block bg-[#FACC15] text-gray-800 text-sm font-semibold px-3 py-1 rounded-full">Hữu Cơ</span>
+                    </div>
+                </div>
+                <div class="card text-center">
+                    <img src="https://placehold.co/500x300/E0F2F1/48A9A6?text=Paimore+Grande" alt="Paimore Grande Product Mockup" class="mx-auto rounded-lg shadow-lg mb-4" onerror="this.src='https://placehold.co/500x300/CCCCCC/FFFFFF?text=Image+Not+Found'">
+                    <p class="text-md italic">Mang lại vẻ đẹp thanh lịch, tràn đầy sức sống cho mái tóc.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="section-title">Hé Lộ Paimore Grande: Tính Năng & Lợi Ích</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card lg:col-span-1">
+                    <h3 class="sub-title text-center">Bảng Màu Đa Dạng: 56 Sắc Thái</h3>
+                    <div class="chart-container mx-auto h-[280px] md:h-[300px]">
+                        <canvas id="shadesChart"></canvas>
+                    </div>
+                    <p class="text-sm text-center mt-2">Bao gồm màu phủ bạc, màu mix và màu nâng sáng, đáp ứng mọi nhu cầu.</p>
+                </div>
+                <div class="card lg:col-span-2">
+                    <h3 class="sub-title">Lợi Ích Vượt Trội Cho Tóc & Da Đầu</h3>
+                    <ul class="space-y-3 text-lg">
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-[#48A9A6]">✅</span> <strong>An toàn cho da đầu:</strong> Giảm thiểu kích ứng, phù hợp với triết lý "dược mỹ phẩm".</li>
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-[#48A9A6]">🛡️</span> <strong>Phục hồi tóc:</strong> Tóc "mượt hơn trước khi nhuộm" nhờ 6 thành phần bảo vệ.</li>
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-[#48A9A6]">🌿</span> <strong>Thành phần hữu cơ:</strong> Chứa 5 tinh chất Organic tự nhiên được ECOCERT chứng nhận.</li>
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-[#48A9A6]">🍎</span> <strong>Hương thơm dễ chịu:</strong> Mùi táo xanh thay thế mùi hóa chất nồng hắc.</li>
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-[#48A9A6]">✨</span> <strong>Màu sắc bền lâu:</strong> "Lâu phai", giữ nền nâu đẹp ngay cả khi phai màu.</li>
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-[#48A9A6]">👵</span> <strong>Phủ bạc hiệu quả:</strong> Mang lại màu tự nhiên, đậm và phong phú cho tóc bạc.</li>
+                    </ul>
+                    <p class="mt-4 text-sm italic">Paimore Grande được phân loại là "quasi-drug" (準특허약품) tại Nhật Bản, khẳng định tiêu chuẩn an toàn và hiệu quả cao.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="section-title">Trải Nghiệm Paimore Grande: Quy Trình Sử Dụng</h2>
+            <div class="card">
+                <h3 class="sub-title text-center mb-6">Các Bước Đạt Kết Quả Hoàn Hảo</h3>
+                <div class="flex flex-col md:flex-row justify-around items-stretch md:items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="flowchart-step">
+                        <span class="font-bold text-lg">1. Đo Lường</span><br>Cân thuốc & Oxy (1:2)
+                    </div>
+                    <div class="flowchart-arrow hidden md:block">→</div>
+                    <div class="flowchart-step">
+                        <span class="font-bold text-lg">2. Pha Trộn</span><br>Trộn đều hỗn hợp
+                    </div>
+                    <div class="flowchart-arrow hidden md:block">→</div>
+                    <div class="flowchart-step">
+                        <span class="font-bold text-lg">3. Thoa Thuốc</span><br>Thoa đều lên tóc
+                    </div>
+                    <div class="flowchart-arrow hidden md:block">→</div>
+                    <div class="flowchart-step">
+                        <span class="font-bold text-lg">4. Xử Lý</span><br>Chờ 30 phút
+                    </div>
+                    <div class="flowchart-arrow hidden md:block">→</div>
+                    <div class="flowchart-step">
+                        <span class="font-bold text-lg">5. Hoàn Tất</span><br>Gội sạch & sấy khô
+                    </div>
+                </div>
+                <p class="mt-6 text-center text-gray-700">Tuân thủ đúng tỷ lệ và thời gian để đảm bảo màu sắc rực rỡ, tóc mềm mượt và khỏe mạnh.</p>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="section-title">Paimore: Dấu Ấn Toàn Cầu & Tại Việt Nam</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card text-center">
+                    <h3 class="sub-title">Vươn Ra Thế Giới</h3>
+                    <p class="highlight-stat">11+</p>
+                    <p class="text-xl font-semibold text-gray-700">Quốc Gia Phân Phối</p>
+                    <p class="mt-2 text-sm">Bao gồm: Hàn Quốc, Hồng Kông, Hoa Kỳ, Đài Loan, Singapore, Thái Lan, Canada, Hungary, Malaysia, Tây Ban Nha và Việt Nam.</p>
+                </div>
+                <div class="card">
+                    <h3 class="sub-title">Paimore Việt Nam</h3>
+                    <p class="mb-2">Đơn vị nhập khẩu và phân phối độc quyền: <strong>CÔNG TY TNHH SÁNG TẠO VẺ ĐẸP TOÀN CẦU</strong>.</p>
+                    <p class="font-semibold">Văn phòng:</p>
+                    <ul class="list-disc list-inside text-sm">
+                        <li>Hà Nội: Số 9N3, ngõ 132 Võ Chí Công, P. Xuân La, Q. Tây Hồ.</li>
+                        <li>TP. HCM: 210 Bùi Văn Ba, P. Tân Thuận Đông, Quận 7.</li>
+                    </ul>
+                    <p class="mt-2 text-sm">Website: <a href="https://paimore.vn" target="_blank" class="text-[#48A9A6] hover:underline">paimore.vn</a></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="section-title">Đào Tạo Chuyên Nghiệp & Gắn Kết Cộng Đồng</h2>
+            <div class="card">
+                <h3 class="sub-title">Hội Thảo "Hiểu Màu Nhật - Thực Hành Ngay"</h3>
+                <p class="mb-4">Paimore Việt Nam thường xuyên tổ chức các hội thảo chuyên sâu, dẫn dắt bởi chuyên gia Nhật Bản như ông Harumasa Murakami, Giám đốc Kỹ thuật Sản phẩm Paimore.</p>
+                <div class="relative">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-lg text-[#E4572E]">Hà Nội (09/07) & TP.HCM (11/07)</h4>
+                        <p class="text-sm text-gray-600">Tập trung vào dòng Grande Organic, kỹ thuật "màu nâu công sở" và phủ bạc.</p>
+                    </div>
+                    <div class="timeline-item border-l-0 md:border-l-2">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-semibold text-lg text-[#E4572E]">Mục Tiêu Hội Thảo</h4>
+                        <p class="text-sm text-gray-600">Trang bị kiến thức và kỹ năng tiên tiến cho Nhà Tạo Mẫu Tóc, đảm bảo sử dụng Paimore Grande hiệu quả.</p>
+                    </div>
+                </div>
+                <p class="mt-4 text-center italic">Đầu tư vào giáo dục chuyên nghiệp khẳng định cam kết chất lượng và hỗ trợ của Paimore.</p>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="section-title">Dấu Ấn Trực Tuyến & Kênh Tiếp Cận</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="sub-title text-center">Hiện Diện YouTube Paimore Việt Nam</h3>
+                     <div class="chart-container mx-auto h-[250px] md:h-[280px]">
+                        <canvas id="youtubeChart"></canvas>
+                    </div>
+                    <p class="text-sm text-center mt-2">Kênh @paimorevietnam4270 chia sẻ video review, hướng dẫn sử dụng sản phẩm.</p>
+                </div>
+                <div class="card">
+                    <h3 class="sub-title">Kênh Mua Hàng & Thông Tin</h3>
+                    <ul class="space-y-2 text-lg">
+                        <li class="flex items-center"><span class="text-xl mr-2">🛒</span> <strong class="mr-1">TMĐT:</strong> Carousell (HK), AS Hair Treatment.</li>
+                        <li class="flex items-center"><span class="text-xl mr-2">💇‍♀️</span> <strong class="mr-1">Salon:</strong> Tìm salon qua Paimore.vn.</li>
+                        <li class="flex items-center"><span class="text-xl mr-2">📘</span> <strong class="mr-1">Facebook:</strong> /paimorevietnam</li>
+                         <li class="flex items-center"><span class="text-xl mr-2">📸</span> <strong class="mr-1">Instagram:</strong> /paimore_vietnam</li>
+                    </ul>
+                    <p class="mt-3 text-sm">Dễ dàng tiếp cận sản phẩm qua nhiều kênh, từ salon chuyên nghiệp đến các nền tảng trực tuyến.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="mb-12">
+            <h2 class="section-title">Phân Tích SWOT: Paimore Grande</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="swot-card border-t-4 border-[#48A9A6]">
+                    <h3 class="sub-title text-[#48A9A6]">Điểm Mạnh (Strengths)</h3>
+                    <ul class="list-disc list-inside text-sm space-y-1">
+                        <li>Xuất xứ Nhật Bản, uy tín cao.</li>
+                        <li>Định vị "Dược mỹ phẩm hữu cơ".</li>
+                        <li>Chứng nhận ECOCERT, "Quasi-drug".</li>
+                        <li>An toàn da đầu, phục hồi tóc.</li>
+                        <li>Mùi hương táo dễ chịu.</li>
+                        <li>Nhà phân phối mạnh tại Việt Nam.</li>
+                        <li>Chú trọng đào tạo chuyên nghiệp.</li>
+                    </ul>
+                </div>
+                <div class="swot-card border-t-4 border-[#E4572E]">
+                    <h3 class="sub-title text-[#E4572E]">Điểm Yếu (Weaknesses)</h3>
+                    <ul class="list-disc list-inside text-sm space-y-1">
+                        <li>Thông tin chi tiết thành phần (tên cụ thể) còn hạn chế trong tài liệu công khai.</li>
+                        <li>Đánh giá độc lập từ người dùng cuối còn ít.</li>
+                        <li>Mức độ nhận biết rộng rãi của người tiêu dùng có thể cần thêm thời gian.</li>
+                    </ul>
+                </div>
+                <div class="swot-card border-t-4 border-[#FACC15]">
+                    <h3 class="sub-title text-[#D69E2E]">Cơ Hội (Opportunities)</h3>
+                    <ul class="list-disc list-inside text-sm space-y-1">
+                        <li>Nhu cầu sản phẩm làm đẹp an toàn, hữu cơ tăng.</li>
+                        <li>Tận dụng đào tạo chuyên nghiệp để xây dựng lòng trung thành.</li>
+                        <li>Mở rộng nội dung trực tuyến, tăng tương tác.</li>
+                        <li>Cung cấp thêm thông tin minh bạch về thành phần.</li>
+                    </ul>
+                </div>
+                <div class="swot-card border-t-4 border-[#274C77]">
+                    <h3 class="sub-title text-[#274C77]">Thách Thức (Threats)</h3>
+                    <ul class="list-disc list-inside text-sm space-y-1">
+                        <li>Cạnh tranh từ các thương hiệu chuyên nghiệp và hữu cơ khác.</li>
+                        <li>Cần duy trì giáo dục liên tục để đảm bảo chất lượng ứng dụng.</li>
+                        <li>Giá thành có thể là rào cản với một số phân khúc.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="text-center py-10 bg-gray-100 rounded-lg">
+            <h2 class="section-title">Tương Lai Tươi Sáng Cùng Paimore Grande</h2>
+            <p class="max-w-2xl mx-auto text-lg mb-6">
+                Paimore Grande không chỉ là một sản phẩm nhuộm tóc, mà là một giải pháp toàn diện cho mái tóc khỏe đẹp. Với cam kết về chất lượng Nhật Bản, thành phần hữu cơ an toàn và công nghệ dược mỹ phẩm tiên tiến, Paimore Grande hứa hẹn mang đến trải nghiệm nhuộm tóc đẳng cấp cho người tiêu dùng Việt.
+            </p>
+            <a href="https://paimore.vn" target="_blank" class="bg-[#E4572E] hover:bg-[#d04a20] text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">
+                Tìm Hiểu Thêm về Paimore
+            </a>
+        </section>
+    </main>
+
+    <footer class="text-center py-6 bg-[#274C77] text-gray-300 text-sm">
+        <p>&copy; <span id="currentYear"></span> Infographic được tạo dựa trên báo cáo phân tích Paimore Grande. Thông tin mang tính tham khảo.</p>
+        <p>KHÔNG SỬ DỤNG SVG. KHÔNG SỬ DỤNG MERMAID JS.</p>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        function wrapLabel(str, maxWidth) {
+            if (str.length <= maxWidth) {
+                return str;
+            }
+            const words = str.split(' ');
+            let currentLine = '';
+            const lines = [];
+            for (const word of words) {
+                if ((currentLine + word).length <= maxWidth) {
+                    currentLine += word + ' ';
+                } else {
+                    lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                }
+            }
+            lines.push(currentLine.trim());
+            return lines.filter(line => line.length > 0);
+        }
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        // Shades Chart
+        const shadesCtx = document.getElementById('shadesChart').getContext('2d');
+        const shadesData = {
+            labels: [
+                wrapLabel('Màu Phủ Bạc (49)', 16), 
+                wrapLabel('Màu Mix (6)', 16), 
+                wrapLabel('Màu Nâng Sáng (1)', 16)
+            ],
+            datasets: [{
+                label: 'Phân Bố Sắc Thái',
+                data: [49, 6, 1],
+                backgroundColor: [
+                    '#48A9A6', // Teal
+                    '#E4572E', // Coral/Orange
+                    '#FACC15'  // Yellow
+                ],
+                hoverOffset: 4
+            }]
+        };
+        new Chart(shadesCtx, {
+            type: 'doughnut',
+            data: shadesData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                             font: { size: 10 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+
+        // YouTube Chart
+        const youtubeCtx = document.getElementById('youtubeChart').getContext('2d');
+        const youtubeData = {
+            labels: [wrapLabel('Videos (51)', 16), wrapLabel('Subscribers (50)', 16)],
+            datasets: [{
+                label: 'Hiện Diện YouTube Paimore VN',
+                data: [51, 50],
+                backgroundColor: ['#48A9A6', '#E4572E'],
+                borderColor: ['#3a8a87', '#c04120'],
+                borderWidth: 1
+            }]
+        };
+        new Chart(youtubeCtx, {
+            type: 'bar',
+            data: youtubeData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 10
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                           title: tooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
